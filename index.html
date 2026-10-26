@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171522">
+    <title>TechBloom Essentials | POS</title>
+    <!-- Google Fonts – requires internet access; fonts fall back to system sans-serif if offline -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <!-- Demo welcome screen only; it does not authenticate or protect the app. -->
+    <section class="login-screen" id="demo-welcome">
+      <div class="login-shell">
+        <aside class="login-brand-panel">
+          <div class="login-brand-art">
+            <img src="Techbloom%20Essential%20Logo.jpg" alt="TechBloom Essentials official logo">
+          </div>
+          <div class="login-brand-copy">
+            <span class="login-kicker">SMART CHOICES · BETTER EVERYDAY</span>
+            <h1>Welcome to a brighter way to run your store.</h1>
+            <p>Your TechBloom Essentials point-of-sale workspace, presented in a frontend-only preview.</p>
+          </div>
+          <div class="login-brand-footer"><span class="brand-footer-dot"></span>Retail workspace preview <span>·</span> Phase 1</div>
+        </aside>
+        <div class="login-form-panel">
+          <div class="login-mobile-logo">
+            <img src="Techbloom%20Essential%20Logo.jpg" alt="TechBloom Essentials official logo">
+          </div>
+          <span class="login-eyebrow">INTERACTIVE STORE PREVIEW</span>
+          <h2>Explore the POS demo</h2>
+          <p class="login-subtitle">Open the TechBloom Essentials interface and try the sample products and checkout flow.</p>
+          <div class="login-demo-warning" role="note">
+            <strong>This is not a login.</strong> The demo has no authentication and does not protect data.
+            Do not enter credentials. Changes and checkout examples stay in this browser session only.
+          </div>
+          <div class="login-form">
+            <button class="button button-primary login-submit" id="enter-demo" type="button">
+              Continue to demo <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <p class="login-security-note">
+            <span aria-hidden="true">◇</span>
+            Secure accounts, password hashing, recovery, protected routes, and shared records require a
+            server-side backend. They are not included in this static GitHub Pages demo.
+          </p>
+          <div class="login-bottom">
+            <span>TechBloom Essentials</span><span>Phase 1 · UI preview</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── App shell (hidden until demo entry) ───────────────────────── -->
+    <div class="app-shell" id="app-shell" hidden>
+      <aside class="sidebar" id="sidebar">
+        <!-- Brand – uses button role to avoid hash-navigation side-effects -->
+        <button class="brand brand-btn" id="brand-home" aria-label="Go to Dashboard">
+          <img class="brand-logo" src="Techbloom%20Essential%20Logo.jpg" alt="TechBloom Essentials logo">
+          <span class="brand-copy"><strong>TechBloom</strong><small>ESSENTIALS</small></span>
+        </button>
+        <div class="workspace-label">WORKSPACE</div>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <button class="nav-link active" data-page="dashboard"><span class="nav-icon" aria-hidden="true">◫</span>Dashboard</button>
+          <button class="nav-link" data-page="pos"><span class="nav-icon" aria-hidden="true">▣</span>Point of Sale</button>
+          <button class="nav-link" data-page="inventory"><span class="nav-icon" aria-hidden="true">▤</span>Inventory</button>
+          <button class="nav-link" data-page="sales"><span class="nav-icon" aria-hidden="true">↗</span>Sales History</button>
+          <button class="nav-link" data-page="reports"><span class="nav-icon" aria-hidden="true">▥</span>Reports</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <button class="nav-link" data-page="settings"><span class="nav-icon" aria-hidden="true">⚙</span>Settings</button>
+          <div class="sidebar-note">
+            <span class="live-dot"></span>
+            <span><strong>Frontend preview</strong><small>No business data saved</small></span>
+          </div>
+          <div class="user-chip">
+            <span class="avatar" aria-hidden="true">TB</span>
+            <span><strong>Store workspace</strong><small>Demo mode</small></span>
+            <span class="more" aria-hidden="true">···</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Mobile sidebar backdrop – tap to close -->
+      <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
+
+      <div class="main-column">
+        <header class="topbar">
+          <button class="mobile-menu" id="mobile-menu" aria-label="Open navigation" aria-expanded="false">☰</button>
+          <div class="breadcrumb">
+            <span>Workspace</span><span class="crumb-slash">/</span><strong id="current-section">Dashboard</strong>
+          </div>
+          <div class="topbar-actions">
+            <span class="demo-pill"><i aria-hidden="true"></i> DEMO PREVIEW</span>
+            <span class="topbar-date" id="today-label"></span>
+            <button class="icon-button" aria-label="Notifications" aria-haspopup="true">♧<b aria-hidden="true"></b></button>
+            <button class="button button-secondary exit-demo-button" id="exit-demo">Exit demo</button>
+          </div>
+        </header>
+        <main id="main-content" tabindex="-1" aria-live="polite"></main>
+      </div>
+    </div>
+
+    <!-- ── Toast notification ─────────────────────────────────────────── -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- ── Receipt modal ──────────────────────────────────────────────── -->
+    <div class="modal-backdrop hidden" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="receipt-title">
+      <section class="receipt-modal">
+        <button class="modal-close" id="modal-close" aria-label="Close receipt">×</button>
+        <div id="receipt-content"></div>
+        <div class="receipt-actions">
+          <button class="button button-secondary" id="print-receipt">Print receipt</button>
+          <button class="button button-primary" id="done-receipt">Done</button>
+        </div>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
